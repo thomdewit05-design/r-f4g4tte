@@ -9,14 +9,14 @@ Het spel werkt in de browser (telefoon en computer), als web-app op het beginsch
 ## Steden
 | Stad | Snack | Obstakels |
 |---|---|---|
-| 🇳🇱 Amsterdam | stroopwafel | paaltjes, fietsen, tulpenkratten, meeuwen, bord "BUKKEN" |
-| 🇫🇷 Parijs | croissant | bistrotafeltjes, paaltjes, duiven, bord "ATTENTION" |
-| 🇬🇧 Londen | kopje thee | telefooncellen, brievenbussen, bord "MIND YOUR HEAD" |
-| 🇮🇹 Rome | gelato | gebroken zuilen, Vespa's, bord "ATTENZIONE" |
-| 🇪🇬 Caïro | falafel | kruiken, kamelen, valken, Egyptische lantaarns |
-| 🇯🇵 Tokio | sushi | pionnen, gelukskatten, rode lampionnen, kraaien |
-| 🇧🇷 Rio | kokosnoot | voetballen, zandkastelen, surfplanken, papegaaien, bord "CUIDADO" |
-| 🇺🇸 New York | pizzapunt | brandkranen, vuilnisbakken, bord "LOW CLEARANCE" |
+| 🇳🇱 Amsterdam | stroopwafel | Amsterdammertjes, fietsen, tulpenkratten, fietsers, meeuwen, bord "BUKKEN" |
+| 🇫🇷 Parijs | croissant | bistrotafeltjes, paaltjes, mimespelers, duiven, bord "ATTENTION" |
+| 🇬🇧 Londen | kopje thee | telefooncellen, brievenbussen, de koninklijke wacht, bord "MIND YOUR HEAD" |
+| 🇮🇹 Rome | gelato | gebroken zuilen, Vespa's, gladiatoren, bord "ATTENZIONE" |
+| 🇪🇬 Caïro | falafel | kruiken, kamelen, toeristen, valken, Egyptische lantaarns |
+| 🇯🇵 Tokio | sushi | pionnen, gelukskatten, toeristen, rode lampionnen, kraaien |
+| 🇧🇷 Rio | kokosnoot | voetballen, zandkastelen, surfplanken, voetballertjes, papegaaien, bord "CUIDADO" |
+| 🇺🇸 New York | pizzapunt | brandkranen, vuilnisbakken, skaters, bord "LOW CLEARANCE" |
 
 Elke 500 m kom je in een nieuwe stad. Na New York begin je weer in Amsterdam, maar dan sneller.
 
@@ -31,7 +31,18 @@ Bij je eerste potje krijg je een korte oefenronde. Na een pauze telt het spel af
 - **Muziek per stad**, live gegenereerd: een wals in Parijs, de hijaz-toonladder in Caïro, samba in Rio, jazz in New York…
 - **Power-ups:** 🟡 gouden snack (x2), 🧲 magneet, 🛡️ schild, ✈️ vliegtuig naar de volgende stad, en 🟢 bedorven snack (besturing omgedraaid)
 - **Snackregen** vlak voor elke nieuwe stad
-- **Karakters met een eigen vaardigheid:** Kikker springt hoger, Koe start met een schild, Haring heeft langere power-ups, Klompje start met een magneet, Panda verdient +25% snacks
+- **8 speelbare figuren, elk met een eigen vaardigheid:**
+  | Figuur | Wie | Vaardigheid | Prijs |
+  |---|---|---|---|
+  | Sam | scholier met rode pet | (start-figuur) | gratis |
+  | Lisa | hardloopster | springt hoger | 60 |
+  | Henk | bouwvakker | start met een schild | 150 |
+  | Marco | kok | power-ups duren 50% langer | 300 |
+  | Amira | uitvinder | start met een magneet | 500 |
+  | Kenji | zakenman | +25% snacks in je spaarpot | 800 |
+  | Oma Gerda | supersnelle oma | start met 10 sec dubbele punten | 1100 |
+  | Diego | voetballer uit Rio | nieuw schild in elke stad | 1500 |
+- **Mensen op straat** als obstakel: een fietser (Amsterdam) en een skater (New York) die op je af komen, een mime (Parijs), een koninklijke wacht (Londen), een gladiator (Rome), toeristen met een camera (Caïro, Tokio) en een voetballertje (Rio)
 - **Opdrachten:** steeds 3 tegelijk, die moeilijker worden naarmate je er meer haalt
 - **Dagelijks:** een beloning (hoger als je meerdere dagen achter elkaar speelt) en een uitdaging per dag
 - **Ranglijst:** je top 10, en in de iOS-app ook Game Center

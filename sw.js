@@ -1,5 +1,5 @@
 // Offline-cache voor Snack Trip! Verhoog VERSION na elke wijziging aan het spel.
-const VERSION = 'snacktrip-v2';
+const VERSION = 'snacktrip-v3';
 const FILES = ['./', 'index.html', 'privacy.html', 'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {

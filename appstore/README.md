@@ -34,7 +34,7 @@ Alles wat je in **App Store Connect** moet invullen. Je hebt een betaald [Apple 
 Snack Trip! is een vrolijke endless runner waarmee je de wereld rond rent. In elke stad pak je de lokale snacks!
 
 🌍 8 STEDEN
-Amsterdam, Parijs, Londen, Rome, Caïro, Tokio, Rio en New York. Elke stad heeft een eigen skyline, eigen muziek, eigen snacks en eigen obstakels: van fietsen en telefooncellen tot kamelen en surfplanken.
+Amsterdam, Parijs, Londen, Rome, Caïro, Tokio, Rio en New York. Elke stad heeft een eigen skyline, eigen muziek, eigen snacks en eigen obstakels: van Amsterdammertjes en telefooncellen tot kamelen en surfplanken.
 
 🧇 PAK DE SNACKS
 Stroopwafels, croissants, gelato, sushi, pizza… Vlak voor elke nieuwe stad valt er een snackregen!
@@ -46,8 +46,11 @@ Stroopwafels, croissants, gelato, sushi, pizza… Vlak voor elke nieuwe stad val
 • Vliegtuig: vlieg over alles heen naar de volgende stad
 • Pas op voor bedorven snacks: dan zijn springen en bukken omgedraaid!
 
-🐸 6 KARAKTERS
-Elk met een eigen vaardigheid: de kikker springt hoger, de koe start met een schild, de panda verdient meer snacks…
+🏃 8 FIGUREN
+Speel als Sam, hardloopster Lisa, bouwvakker Henk, kok Marco, uitvinder Amira, zakenman Kenji, supersnelle Oma Gerda of voetballer Diego. Iedereen heeft een eigen vaardigheid!
+
+🚲 MENSEN OP STRAAT
+Ontwijk fietsers in Amsterdam, mimespelers in Parijs, de koninklijke wacht in Londen, gladiatoren in Rome en skaters in New York.
 
 🏆 OPDRACHTEN EN UITDAGINGEN
 Voltooi opdrachten, haal elke dag een beloning en een nieuwe uitdaging, en strijd mee op de Game Center-ranglijst.
@@ -59,7 +62,7 @@ Voltooi opdrachten, haal elke dag een beloning en een nieuwe uitdaging, en strij
 • Geen advertenties, geen aankopen, geen tracking
 ```
 
-**Trefwoorden (max. 100):** `runner,rennen,springen,stroopwafel,wereldreis,steden,snacks,arcade,eend,offline,reizen,spel`
+**Trefwoorden (max. 100):** `runner,rennen,springen,stroopwafel,wereldreis,steden,snacks,arcade,fietser,offline,reizen,spel`
 
 ### English
 **Subtitle:** Run around the world!
@@ -83,14 +86,16 @@ Stroopwafels, croissants, gelato, sushi, pizza… and a snack rain right before 
 • Plane: fly over everything to the next city
 • Watch out for rotten snacks: they swap jump and duck!
 
-🐸 6 CHARACTERS, each with a unique ability.
+🏃 8 CHARACTERS: Sam, runner Lisa, builder Henk, chef Marco, inventor Amira, businessman Kenji, speedy Grandma Gerda and footballer Diego, each with a unique ability.
+
+🚲 STREET LIFE: dodge cyclists, mimes, royal guards, gladiators and skaters.
 
 🏆 MISSIONS, daily rewards, daily challenges and Game Center leaderboards.
 
 ✨ Simple tap or swipe controls · fully offline · iCloud sync · no ads, no purchases, no tracking
 ```
 
-**Keywords:** `runner,endless,jump,world,travel,cities,snacks,arcade,duck,offline,casual,trip`
+**Keywords:** `runner,endless,jump,world,travel,cities,snacks,arcade,skater,offline,casual,trip`
 
 ## 4. Screenshots
 In `screenshots/` staan kant-en-klare screenshots in de formaten die Apple vraagt:
