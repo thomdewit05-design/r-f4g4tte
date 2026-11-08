@@ -48,6 +48,7 @@ Bij je eerste potje krijg je een korte oefenronde. Na een pauze telt het spel af
 - **Ranglijst:** je top 10, en in de iOS-app ook Game Center
 - **Score delen:** als afbeelding, via het deelmenu
 - **Instellingen:** muziek, geluid, trillen, besturing, taal en de uitleg opnieuw spelen
+- **Reclame na het doodgaan:** kijk een reclame om verder te spelen (1x per potje), en een tussendoor-reclame na elke 2e keer doodgaan (max. 1 per minuut). In de app via AdMob, op de website via AdSense, met eigen promo's als terugval. Hoe je je eigen reclame-account koppelt staat in [`appstore/README.md`](appstore/README.md#reclame-admob-en-adsense).
 
 ## Spelen in de browser
 Open `index.html`. Om te testen: met `index.html?stad=4` begin je direct in Caïro (de steden zijn genummerd van 0 tot en met 7). Met `?debug` kunnen testscripts de spelstatus uitlezen.
@@ -70,6 +71,7 @@ Wat de app doet:
 - **Game Center**-ranglijst (ID `snacktrip.highscore`)
 - **iCloud**: je voortgang op al je apparaten
 - **Deelmenu** van iOS om je score als afbeelding te delen
+- **Reclame** via Google AdMob (met toestemmingsvraag voor de AVG en App Tracking Transparency). Er staan nog testadvertenties in.
 - **Trillingen** via de Taptic Engine
 - werkt helemaal offline, met een privacy manifest (`PrivacyInfo.xcprivacy`)
 - minimale iOS-versie 17.0, gebouwd met de SDK van je Xcode

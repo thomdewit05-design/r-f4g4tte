@@ -10,12 +10,17 @@ Alles wat je in **App Store Connect** moet invullen. Je hebt een betaald [Apple 
 | SKU | snacktrip-001 |
 | Primaire taal | Nederlands (voeg Engels toe als tweede taal) |
 | Categorie | Games → Arcade (tweede: Casual) |
-| Leeftijd | 4+ (geen geweld, geen aankopen, geen chat) |
+| Leeftijd | 4+ (geen geweld, geen aankopen, geen chat; reclame staat op "alle leeftijden") |
 | Prijs | Gratis |
 | Privacybeleid-URL | https://thomdewit05-design.github.io/r-f4g4tte/privacy.html |
 | Support-URL | https://github.com/thomdewit05-design/r-f4g4tte |
 
-**Privacylabels ("App Privacy"):** kies *Geen gegevens verzameld*. De app heeft geen tracking, advertenties of analysediensten. Game Center en iCloud zijn diensten van Apple zelf.
+**Privacylabels ("App Privacy"):** door AdMob verzamelt de app wel gegevens. Vul in wat Google opgeeft voor de Google Mobile Ads SDK ([uitleg van Google](https://developers.google.com/admob/ios/privacy/data-disclosure)). Meestal is dat:
+- **Gebruikt om je te volgen (tracking):** Apparaat-ID (advertentie-ID)
+- **Gekoppeld aan jou / derde partij reclame:** Apparaat-ID, Productinteractie, Advertentiegegevens, Globale locatie
+- **Analyse/diagnose:** Crashgegevens, Prestatiegegevens, Andere diagnostische gegevens
+
+Game Center en iCloud zijn diensten van Apple zelf.
 
 ## 2. Game Center
 1. App Store Connect → je app → **Services → Game Center → Ranglijsten → +**
@@ -59,7 +64,7 @@ Voltooi opdrachten, haal elke dag een beloning en een nieuwe uitdaging, en strij
 • Eenvoudige besturing: tikken of vegen
 • Werkt helemaal offline
 • Voortgang via iCloud op al je apparaten
-• Geen advertenties, geen aankopen, geen tracking
+• Gratis, geen aankopen
 ```
 
 **Trefwoorden (max. 100):** `runner,rennen,springen,stroopwafel,wereldreis,steden,snacks,arcade,fietser,offline,reizen,spel`
@@ -92,10 +97,32 @@ Stroopwafels, croissants, gelato, sushi, pizza… and a snack rain right before 
 
 🏆 MISSIONS, daily rewards, daily challenges and Game Center leaderboards.
 
-✨ Simple tap or swipe controls · fully offline · iCloud sync · no ads, no purchases, no tracking
+✨ Simple tap or swipe controls · plays offline · iCloud sync · free, no purchases
 ```
 
 **Keywords:** `runner,endless,jump,world,travel,cities,snacks,arcade,skater,offline,casual,trip`
+
+## Reclame (AdMob en AdSense)
+Het spel toont reclame **na het doodgaan**:
+- **"Verder spelen?"**: kijk een beloonde reclame en ren verder waar je was (1x per potje).
+- **Tussendoor-reclame**: na elke 2e keer doodgaan, maximaal 1x per minuut. Dit stel je in met `ADS` bovenaan de reclamecode in `index.html`.
+
+Nu staan er nog **testadvertenties** in. Zo zet je echte reclame aan:
+
+**iOS-app (AdMob)**
+1. Maak een account op [admob.google.com](https://admob.google.com) en voeg de app toe (iOS, "Snack Trip!").
+2. Maak twee advertentieblokken aan: *Interstitial* en *Rewarded*.
+3. Vul je ID's in:
+   - `ios/SnackTrip/Info.plist` → `GADApplicationIdentifier` (je **app-ID**, `ca-app-pub-…~…`)
+   - `ios/SnackTrip/Ads.swift` → `interstitialUnitID` en `rewardedUnitID` (je **blok-ID's**, `ca-app-pub-…/…`)
+4. Zet in AdMob onder *Privacy en berichten* een **AVG-toestemmingsbericht** aan (verplicht in de EU) en een **IDFA-uitleg**.
+5. Plaats een `app-ads.txt` op je website (AdMob geeft je de regel). Voor GitHub Pages: maak een bestand `app-ads.txt` in de hoofdmap van de repo.
+
+**Website (AdSense / H5 Games Ads)**
+1. Vraag op [adsense.google.com](https://adsense.google.com) toegang aan en voeg de site toe. Voor games heb je ook de *H5 Games Ads*-beta nodig.
+2. Vul in `index.html` bij `ADS.webClient` je uitgevers-ID in (`ca-pub-…`).
+3. Test eerst met `webTest: true`. Werkt het, zet dan `webTest: false`.
+4. Zolang er geen ID is (of geen reclame beschikbaar), toont de website eigen promo's van Snack Trip!.
 
 ## 4. Screenshots
 In `screenshots/` staan kant-en-klare screenshots in de formaten die Apple vraagt:

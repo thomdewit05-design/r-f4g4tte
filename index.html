@@ -78,6 +78,17 @@
   @media (max-width: 640px) { .overGrid { grid-template-columns:1fr; } }
   @media (max-height: 520px) { .card { padding:14px 16px; } h1 { font-size:36px; } .mission { padding:6px 8px; font-size:13px; } }
   @media (min-width: 1000px) and (min-height: 760px) { .card, #hudBtns, #rotate { zoom:1.5; } }
+  .ring { position:relative; width:120px; height:120px; margin:6px auto; }
+  .ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .ring circle { fill:none; stroke-width:9; }
+  .ring .track { stroke:#eadfca; } .ring .prog { stroke:var(--goud); stroke-linecap:round; stroke-dasharray:276.5; transition:stroke-dashoffset .1s linear; }
+  .ring b { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:32px; }
+  .adcard { border-style:dashed; }
+  .adlabel { display:inline-block; background:#3b2210; color:#fff; font-size:11px; font-weight:bold; letter-spacing:1px; border-radius:6px; padding:2px 8px; margin-bottom:8px; text-transform:uppercase; }
+  .promo { background:linear-gradient(135deg,#7ec8f0,#ffe39a); border:3px solid var(--ink); border-radius:16px; padding:14px; margin:6px 0; }
+  .promo img, .promo canvas { width:96px; height:96px; border-radius:22px; border:3px solid var(--ink); display:block; margin:0 auto 8px; background:#fff; }
+  .promo h3 { margin:4px 0; color:var(--bruin); font-size:22px; }
+  .btn:disabled { opacity:.5; cursor:default; transform:none; }
   .empty { opacity:.6; font-size:14px; text-align:center; padding:10px; }
 </style>
 </head>
@@ -164,6 +175,26 @@
   </div>
 </div>
 
+<div id="continueMenu" class="overlay hidden">
+  <div class="card">
+    <h2 data-t="contTitle"></h2>
+    <div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" class="track"/><circle cx="50" cy="50" r="44" id="contRing" class="prog"/></svg><b id="contScore">0</b></div>
+    <p class="sub" data-t="contSub"></p>
+    <button class="btn" id="contAdBtn" data-t="contAd"></button><br>
+    <button class="btn alt" id="contNoBtn" data-t="contNo"></button>
+  </div>
+</div>
+
+<div id="adMenu" class="overlay hidden">
+  <div class="card adcard">
+    <div class="adlabel" data-t="adLabel"></div>
+    <div id="adBody"></div>
+    <p class="sub" id="adTimer"></p>
+    <button class="btn" id="adCloseBtn" disabled></button><br>
+    <button class="btn alt hidden" id="adSkipBtn" data-t="adSkip"></button>
+  </div>
+</div>
+
 <div id="overMenu" class="overlay hidden">
   <div class="card wide">
     <div class="overGrid"><div>
@@ -241,6 +272,15 @@ const T = {
     pause: 'Pauze', resume: 'Verder ▶', toMenu: 'Naar menu', again: 'Nog een keer ↻',
     snacks: 'Snacks', dist: 'Afstand',
     newBest: 'Nieuw record!', ouch: ['Au!', 'Oeps!', 'Boem!', 'Helaas!'],
+    contTitle: 'Verder spelen?', contSub: 'Kijk een korte reclame en ren verder waar je was.', contAd: '📺 Kijk reclame en ga verder', contNo: 'Nee, bedankt',
+    adLabel: 'Advertentie', adSkip: 'Overslaan (geen beloning)', adWait: n => `Je kunt sluiten over ${n} sec`, adRewardWait: n => `Beloning over ${n} sec`,
+    adClose: 'Sluiten ✕', adReward: 'Verder spelen ▶', revived: 'Daar gaan we weer!',
+    promos: [
+      ['Snack Trip op je beginscherm', 'Open het spel in Safari en kies Deel → Zet op beginscherm. Dan speel je fullscreen, ook offline!'],
+      ['Daag je vrienden uit!', 'Deel je score na elke run en kijk wie het verst komt.'],
+      ['Nieuw: Oma Gerda', 'De snelste oma ter wereld start met 10 seconden dubbele punten. Spaar 1100 snacks!'],
+      ['Haal je dagelijkse beloning', 'Speel elke dag en je beloning groeit, tot 140 snacks op dag 7.'],
+    ],
     canBuy: n => `Je kunt nu ${n} kopen!`, need: (a, n) => `Nog ${a} voor ${n}`,
     chosen: 'gekozen', pick: 'kies',
     double: 'DUBBEL!', yuck: 'BAH! omgedraaid', barGold: 'x2 punten', barRev: 'omgedraaid!',
@@ -282,6 +322,15 @@ const T = {
     pause: 'Paused', resume: 'Resume ▶', toMenu: 'Menu', again: 'Again ↻',
     snacks: 'Snacks', dist: 'Distance',
     newBest: 'New record!', ouch: ['Ouch!', 'Oops!', 'Bonk!', 'Whoops!'],
+    contTitle: 'Keep going?', contSub: 'Watch a short ad and continue where you left off.', contAd: '📺 Watch ad to continue', contNo: 'No, thanks',
+    adLabel: 'Advertisement', adSkip: 'Skip (no reward)', adWait: n => `You can close in ${n} sec`, adRewardWait: n => `Reward in ${n} sec`,
+    adClose: 'Close ✕', adReward: 'Continue ▶', revived: "Here we go again!",
+    promos: [
+      ['Snack Trip on your home screen', 'Open the game in Safari and tap Share → Add to Home Screen to play fullscreen, even offline!'],
+      ['Challenge your friends!', 'Share your score after every run and see who gets the furthest.'],
+      ['New: Grandma Gerda', 'The fastest grandma in the world starts with 10 seconds of double points. Save up 1100 snacks!'],
+      ['Grab your daily reward', 'Play every day and your reward grows, up to 140 snacks on day 7.'],
+    ],
     canBuy: n => `You can now buy ${n}!`, need: (a, n) => `${a} more for ${n}`,
     chosen: 'selected', pick: 'select',
     double: 'DOUBLE!', yuck: 'YUCK! swapped', barGold: 'x2 points', barRev: 'swapped!',
@@ -1237,7 +1286,7 @@ function release(btn) { held[btn] = false; }
 
 window.addEventListener('keydown', e => {
   lastInput = 'key';
-  if (['Space', 'ArrowUp', 'KeyW'].includes(e.code)) { e.preventDefault(); if (mode === 'menu' || mode === 'over') { if (!e.repeat) startGame(); return; } press('A'); }
+  if (['Space', 'ArrowUp', 'KeyW'].includes(e.code)) { e.preventDefault(); if (mode === 'menu' || mode === 'over') { if (!e.repeat && $('overMenu').classList.contains('hidden') === (mode === 'menu')) startGame(); return; } press('A'); }
   if (['ArrowDown', 'KeyS'].includes(e.code)) { e.preventDefault(); press('B'); }
   if (e.code === 'Escape' || e.code === 'KeyP') togglePause();
 });
@@ -1353,7 +1402,7 @@ function update(rawDt) {
     p.vy += 2400 * rawDt; p.y += p.vy * rawDt;
     G.shake = Math.max(0, G.shake - rawDt * 30);
     updateParts(rawDt);
-    if (G.deadT > 1.0) gameOver();
+    if (G.deadT > 1.0) { if (!G.revived && !G.tut) offerContinue(); else gameOver(); }
     return;
   }
   if (G.countdown > 0) {
@@ -2035,7 +2084,7 @@ function loop(now) {
 
 // ---------- UI ----------
 const $ = id => document.getElementById(id);
-const screens = ['menu', 'charsMenu', 'missionsMenu', 'boardMenu', 'settingsMenu', 'pauseMenu', 'overMenu'];
+const screens = ['menu', 'charsMenu', 'missionsMenu', 'boardMenu', 'settingsMenu', 'pauseMenu', 'overMenu', 'continueMenu', 'adMenu'];
 function show(id) { screens.forEach(s => $(s).classList.toggle('hidden', s !== id)); $('hudBtns').classList.toggle('hidden', id !== null && id !== 'pauseMenu'); }
 
 function flagRow(el, reached) {
@@ -2133,7 +2182,11 @@ function gameOver() {
   const nowAfford = CHARS.filter(c => !save.owned.includes(c.id) && c.price > prevBank && c.price <= save.bank);
   const next = CHARS.find(c => !save.owned.includes(c.id) && c.price > save.bank);
   $('oUnlock').textContent = nowAfford.length ? L().canBuy(nowAfford.map(c => names[c.id]).join(' & ')) : next ? L().need(next.price - save.bank, names[next.id]) : '';
-  refreshMenu(); show('overMenu');
+  refreshMenu();
+  // tussendoor-reclame (niet elke keer), daarna de uitslag
+  Ads.gamesSince++;
+  if (Ads.interstitialDue()) { mode = 'ad'; Ads.showInterstitial(() => { mode = 'over'; show('overMenu'); }); }
+  else show('overMenu');
 }
 
 function buildChars() {
@@ -2158,6 +2211,115 @@ function buildChars() {
     list.appendChild(el);
   }
 }
+
+// ---------- reclame ----------
+// Pas dit aan met je eigen gegevens (zie appstore/README.md, kopje Reclame).
+const ADS = {
+  webClient: '',     // je AdSense-uitgevers-ID, bijv. 'ca-pub-1234567890123456'. Leeg = eigen promo's i.p.v. Google-reclame
+  webTest: true,     // testmodus van Google voor de website (zet op false als je live gaat)
+  everyGames: 2,     // tussendoor-reclame na elke 2e keer doodgaan
+  minGapSec: 60,     // en nooit vaker dan één keer per minuut
+  houseSec: 5,       // hoe lang een eigen promo minimaal in beeld is
+};
+const Ads = {
+  gamesSince: 0, lastAt: 0, cb: {},
+  init() {
+    if (isNative || !ADS.webClient || !location.protocol.startsWith('http')) return;
+    const sc = document.createElement('script');
+    sc.async = true; sc.crossOrigin = 'anonymous';
+    sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(ADS.webClient);
+    sc.setAttribute('data-ad-client', ADS.webClient);
+    sc.setAttribute('data-ad-frequency-hint', ADS.minGapSec + 's');
+    if (ADS.webTest) sc.setAttribute('data-adbreak-test', 'on');
+    document.head.appendChild(sc);
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adBreak = window.adConfig = o => window.adsbygoogle.push(o);
+    window.adConfig({ preloadAdBreaks: 'on', sound: 'on' });
+  },
+  web() { return !isNative && ADS.webClient && typeof window.adBreak === 'function'; },
+  interstitialDue() { return this.gamesSince >= ADS.everyGames && (Date.now() - this.lastAt) / 1000 >= ADS.minGapSec; },
+  showInterstitial(done) {
+    this.gamesSince = 0; this.lastAt = Date.now(); Music.stop();
+    if (isNative) { this.cb.interstitial = ok => ok ? done() : House.show(false, done); native('ads', { action: 'interstitial' }); return; }
+    if (this.web()) {
+      let shown = false;
+      window.adBreak({ type: 'next', name: 'game-over', beforeAd() { shown = true; }, adBreakDone() { shown ? done() : House.show(false, done); } });
+      return;
+    }
+    House.show(false, done);
+  },
+  showRewarded(onReward, onNo) {
+    Music.stop(); this.lastAt = Date.now(); this.gamesSince = 0;
+    if (isNative) { this.cb.rewarded = ok => ok ? onReward() : House.show(true, onReward, onNo); native('ads', { action: 'rewarded' }); return; }
+    if (this.web()) {
+      let handled = false;
+      window.adBreak({
+        type: 'reward', name: 'continue',
+        beforeReward(showAdFn) { showAdFn(); },
+        adViewed() { handled = true; onReward(); },
+        adDismissed() { handled = true; onNo(); },
+        adBreakDone() { if (!handled) House.show(true, onReward, onNo); },
+      });
+      return;
+    }
+    House.show(true, onReward, onNo);
+  },
+};
+window.__adResult = (action, ok) => { const f = Ads.cb[action]; Ads.cb[action] = null; if (f) f(!!ok); };
+
+// eigen promo's: worden getoond als er (nog) geen reclame van Google is
+const House = {
+  timer: null, i: 0,
+  show(reward, onDone, onSkip) {
+    const promos = t('promos'), [title, text] = promos[this.i++ % promos.length];
+    const icon = document.createElement('canvas'); icon.width = icon.height = 192;
+    const ic = icon.getContext('2d'); ic.scale(1.92, 1.92);
+    const g = ic.createLinearGradient(0, 0, 0, 100); g.addColorStop(0, '#7ec8f0'); g.addColorStop(1, '#d6f0ff'); ic.fillStyle = g; ic.fillRect(0, 0, 100, 100);
+    ic.fillStyle = '#f5b731'; ic.beginPath(); ic.arc(50, 46, 34, 0, 7); ic.fill(); ic.fillStyle = '#b5523b'; ic.fillRect(0, 80, 100, 20);
+    const who = this.i % 3 === 0 ? 'oma' : save.char;
+    ic.save(); ic.translate(48, 81); drawChar(ic, who, 0, 0, 40, 74, 0.5, 'idle'); ic.restore();
+    $('adBody').innerHTML = `<div class="promo"><div id="adIcon"></div><h3>${title}</h3><p>${text}</p></div>`;
+    $('adIcon').appendChild(icon);
+    const close = $('adCloseBtn'), skip = $('adSkipBtn');
+    close.disabled = true; skip.classList.toggle('hidden', !reward);
+    let left = ADS.houseSec;
+    const tick = () => {
+      $('adTimer').textContent = left > 0 ? L()[reward ? 'adRewardWait' : 'adWait'](left) : '';
+      close.textContent = reward ? t('adReward') : t('adClose');
+      close.disabled = left > 0;
+      if (left-- <= 0) { clearInterval(this.timer); this.timer = null; }
+    };
+    clearInterval(this.timer); tick(); this.timer = setInterval(tick, 1000);
+    close.onclick = () => { if (close.disabled) return; clearInterval(this.timer); onDone(); };
+    skip.onclick = () => { clearInterval(this.timer); (onSkip || onDone)(); };
+    show('adMenu'); $('hudBtns').classList.add('hidden');
+  },
+};
+
+// ---------- verder spelen ----------
+let contTimer = null;
+function offerContinue() {
+  mode = 'continue'; Music.stop();
+  $('contScore').textContent = G.score;
+  show('continueMenu'); $('hudBtns').classList.add('hidden');
+  const total = 6, ring = $('contRing'); let left = total * 10;
+  clearInterval(contTimer);
+  contTimer = setInterval(() => {
+    left--; ring.style.strokeDashoffset = 276.5 * (1 - left / (total * 10));
+    if (left <= 0) { clearInterval(contTimer); gameOver(); }
+  }, 100);
+}
+function revive() {
+  G.dead = false; G.deadT = 0; G.revived = true; G.shake = 0;
+  const p = G.p; p.y = GROUND; p.vy = 0; p.onGround = true; p.duck = false; p.buffer = 0;
+  G.obs = G.obs.filter(o => o.x > p.x + 650); // ruim de weg voor je op
+  G.mould = 0; G.invuln = 2.5;
+  held.A = held.B = false; pointers.clear();
+  mode = 'play'; show(null);
+  G.countdown = 3; sfx.tick(); toast(t('revived'), '#2a9d3a', 2.5);
+}
+$('contAdBtn').onclick = () => { clearInterval(contTimer); mode = 'ad'; Ads.showRewarded(revive, gameOver); };
+$('contNoBtn').onclick = () => { clearInterval(contTimer); gameOver(); };
 
 // ---------- score delen ----------
 const GAME_URL = location.protocol.startsWith('http') ? location.origin + location.pathname : 'https://thomdewit05-design.github.io/r-f4g4tte/';
@@ -2226,9 +2388,9 @@ $('tutBtn').onclick = () => { save.tutorialDone = false; persist(); startGame();
 
 // ---------- start ----------
 // ?debug: geeft testscripts toegang tot de spelstatus
-if (new URLSearchParams(location.search).has('debug')) window.__game = { get G() { return G; }, get mode() { return mode; }, save, VW: () => VW, Music, shareImage, drawChar, drawObstacle, OBS_SIZE, get actx() { return actx; } };
+if (new URLSearchParams(location.search).has('debug')) window.__game = { get G() { return G; }, get mode() { return mode; }, save, VW: () => VW, Music, shareImage, drawChar, drawObstacle, OBS_SIZE, Ads, get actx() { return actx; } };
 save.farthest = Math.max(1, save.farthest);
-dailyCheck(); fillMissions(); persist();
+dailyCheck(); fillMissions(); persist(); Ads.init();
 applyLang(); refreshMenu(); show('menu');
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
 requestAnimationFrame(loop);

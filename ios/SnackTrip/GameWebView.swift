@@ -3,10 +3,10 @@ import UIKit
 import WebKit
 
 /// Toont het HTML-spel fullscreen en verbindt het met iOS:
-/// trillen, Game Center, iCloud-opslag en het deelmenu.
+/// trillen, Game Center, iCloud-opslag, het deelmenu en reclame (AdMob).
 struct GameWebView: UIViewRepresentable {
     private static let background = UIColor(red: 0.17, green: 0.10, blue: 0.05, alpha: 1)
-    private static let handlers = ["haptic", "cloud", "share", "gamecenter"]
+    private static let handlers = ["haptic", "cloud", "share", "gamecenter", "ads"]
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -39,7 +39,9 @@ struct GameWebView: UIViewRepresentable {
         if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
             webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         }
+        context.coordinator.webView = webView
         GameCenter.shared.authenticate()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { Ads.shared.start() } // na het opstarten: toestemming + reclame laden
         return webView
     }
 
@@ -51,6 +53,7 @@ struct GameWebView: UIViewRepresentable {
 
     @MainActor
     final class Coordinator: NSObject, WKScriptMessageHandler {
+        weak var webView: WKWebView?
         private let light = UIImpactFeedbackGenerator(style: .light)
         private let notification = UINotificationFeedbackGenerator()
 
@@ -79,6 +82,14 @@ struct GameWebView: UIViewRepresentable {
                 } else if let score = body["score"] as? Double {
                     GameCenter.shared.submit(score: Int(score))
                 }
+            case "ads":
+                let body = message.body as? [String: Any] ?? [:]
+                let action = body["action"] as? String ?? ""
+                let reply: (Bool) -> Void = { [weak self] ok in
+                    self?.webView?.evaluateJavaScript("window.__adResult && window.__adResult('\(action)', \(ok))")
+                }
+                if action == "rewarded" { Ads.shared.showRewarded(done: reply) }
+                else if action == "interstitial" { Ads.shared.showInterstitial(done: reply) }
             default:
                 break
             }
