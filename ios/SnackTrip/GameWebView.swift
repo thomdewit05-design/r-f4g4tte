@@ -2,10 +2,11 @@ import SwiftUI
 import UIKit
 import WebKit
 
-/// Toont het HTML-spel fullscreen en vertaalt `haptic`-berichten uit JavaScript
-/// naar trillingen (Taptic Engine).
+/// Toont het HTML-spel fullscreen en verbindt het met iOS:
+/// trillen, Game Center, iCloud-opslag en het deelmenu.
 struct GameWebView: UIViewRepresentable {
     private static let background = UIColor(red: 0.17, green: 0.10, blue: 0.05, alpha: 1)
+    private static let handlers = ["haptic", "cloud", "share", "gamecenter"]
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -13,8 +14,14 @@ struct GameWebView: UIViewRepresentable {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
-        config.websiteDataStore = .default() // bewaart record, spaarpot en karakters (localStorage)
-        config.userContentController.add(context.coordinator, name: "haptic")
+        config.websiteDataStore = .default() // lokale opslag (localStorage) blijft bewaard
+
+        let controller = config.userContentController
+        for name in Self.handlers { controller.add(context.coordinator, name: name) }
+        let bootstrap = CloudSave.bootstrapScript()
+        if !bootstrap.isEmpty {
+            controller.addUserScript(WKUserScript(source: bootstrap, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
 
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.isOpaque = false
@@ -32,13 +39,14 @@ struct GameWebView: UIViewRepresentable {
         if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
             webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         }
+        GameCenter.shared.authenticate()
         return webView
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {}
 
     static func dismantleUIView(_ uiView: WKWebView, coordinator: Coordinator) {
-        uiView.configuration.userContentController.removeScriptMessageHandler(forName: "haptic")
+        for name in handlers { uiView.configuration.userContentController.removeScriptMessageHandler(forName: name) }
     }
 
     @MainActor
@@ -48,12 +56,31 @@ struct GameWebView: UIViewRepresentable {
 
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
-            switch message.body as? String {
-            case "light":   light.impactOccurred(intensity: 0.6)
-            case "success": notification.notificationOccurred(.success)
-            case "warning": notification.notificationOccurred(.warning)
-            case "error":   notification.notificationOccurred(.error)
-            default:        break
+            switch message.name {
+            case "haptic":
+                switch message.body as? String {
+                case "light":   light.impactOccurred(intensity: 0.6)
+                case "success": notification.notificationOccurred(.success)
+                case "warning": notification.notificationOccurred(.warning)
+                case "error":   notification.notificationOccurred(.error)
+                default:        break
+                }
+            case "cloud":
+                if let json = message.body as? String { CloudSave.save(json) }
+            case "share":
+                let body = message.body as? [String: Any] ?? [:]
+                Share.present(text: body["text"] as? String ?? "Snack Trip!", imageDataURL: body["image"] as? String)
+            case "gamecenter":
+                let body = message.body as? [String: Any] ?? [:]
+                if body["action"] as? String == "show" {
+                    GameCenter.shared.showLeaderboard()
+                } else if let score = body["score"] as? Int {
+                    GameCenter.shared.submit(score: score)
+                } else if let score = body["score"] as? Double {
+                    GameCenter.shared.submit(score: Int(score))
+                }
+            default:
+                break
             }
         }
     }

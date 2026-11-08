@@ -27,7 +27,7 @@ jobs:
       - name: Alleen de webbestanden klaarzetten (zonder ios/)
         run: |
           mkdir -p _site
-          cp -r index.html manifest.webmanifest sw.js icons _site/
+          cp -r index.html privacy.html manifest.webmanifest sw.js icons _site/
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5

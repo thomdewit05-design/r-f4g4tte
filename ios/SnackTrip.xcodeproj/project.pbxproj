@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0FFEE000000000000000111 /* NativeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000101 /* NativeBridge.swift */; };
+		C0FFEE000000000000000112 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000102 /* PrivacyInfo.xcprivacy */; };
 		C0FFEE000000000000000002 /* SnackTripApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000006 /* SnackTripApp.swift */; };
 		C0FFEE000000000000000003 /* GameWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000007 /* GameWebView.swift */; };
 		C0FFEE000000000000000004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000008 /* Assets.xcassets */; };
@@ -14,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0FFEE000000000000000101 /* NativeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeBridge.swift; sourceTree = "<group>"; };
+		C0FFEE000000000000000102 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C0FFEE000000000000000103 /* SnackTrip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SnackTrip.entitlements; sourceTree = "<group>"; };
 		C0FFEE000000000000000006 /* SnackTripApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackTripApp.swift; sourceTree = "<group>"; };
 		C0FFEE000000000000000007 /* GameWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWebView.swift; sourceTree = "<group>"; };
 		C0FFEE000000000000000008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +51,9 @@
 			children = (
 				C0FFEE000000000000000006 /* SnackTripApp.swift */,
 				C0FFEE000000000000000007 /* GameWebView.swift */,
+				C0FFEE000000000000000101 /* NativeBridge.swift */,
+				C0FFEE000000000000000102 /* PrivacyInfo.xcprivacy */,
+				C0FFEE000000000000000103 /* SnackTrip.entitlements */,
 				C0FFEE000000000000000008 /* Assets.xcassets */,
 			);
 			path = SnackTrip;
@@ -128,6 +136,7 @@
 			files = (
 				C0FFEE000000000000000004 /* Assets.xcassets in Resources */,
 				C0FFEE000000000000000005 /* index.html in Resources */,
+				C0FFEE000000000000000112 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +149,7 @@
 			files = (
 				C0FFEE000000000000000002 /* SnackTripApp.swift in Sources */,
 				C0FFEE000000000000000003 /* GameWebView.swift in Sources */,
+				C0FFEE000000000000000111 /* NativeBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +224,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SnackTrip/SnackTrip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -244,6 +255,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SnackTrip/SnackTrip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
